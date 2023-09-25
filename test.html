@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <h1>Hello world</h1>
+    <style>
+      .fade-me-out.htmx-swapping {
+        opacity: 0;
+        transition: opacity 1s ease-out;
+      }
+
+      @keyframes fade-in {
+      from { opacity: 0; }
+      }
+
+      @keyframes fade-out {
+      to { opacity: 0; }
+      }
+
+      @keyframes slide-from-right {
+      from { transform: translateX(90px); }
+      }
+      @keyframes slide-to-right {
+      to { transform: translateX(90px); }
+      }
+
+      @keyframes slide-to-left {
+      to { transform: translateX(-90px); }
+      }
+      @keyframes slide-from-left {
+      from { transform: translateX(-90px); }
+      }
+
+      .slide-it {
+        /* text-align: center; */
+        view-transition-name: slide-it;
+      }
+
+      ::view-transition-old(slide-it) {
+        animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+          600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+      }
+      ::view-transition-new(slide-it) {
+        animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+          600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-left;
+      }
+      .slide-it-reverse {
+        /* text-align: center; */
+        view-transition-name: slide-it-reverse;
+      }
+
+      ::view-transition-old(slide-it-reverse) {
+        animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+          600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+      }
+      ::view-transition-new(slide-it-reverse) {
+        animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+          600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+      }
+    </style>
+
+    <button class="fade-me-out"
+      hx-delete="/fade_out_demo"
+      hx-swap="outerHTML swap:1s">
+      Fade Me Out
+    </button>
+
+    <div hx-get="/old" hx-swap="outerHTML" hx-trigger="load"> </div>
+
+  </body>
+
+</html>
